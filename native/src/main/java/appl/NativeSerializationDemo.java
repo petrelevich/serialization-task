@@ -10,6 +10,13 @@ import org.slf4j.LoggerFactory;
 public class NativeSerializationDemo {
     private static final Logger logger = LoggerFactory.getLogger(NativeSerializationDemo.class);
 
+    /*
+    Задание.
+    Надо реализовать сериализацию и десериализацию объекта.
+        Метод serialize должен объект сериализовать в ByteBuffer.
+        Метод deserialize должен из ByteBuffer десериализовать объект.
+    */
+
     public static void main(String[] args) {
         var clientData = new ClientData(17, "dataString", true, true);
         var client = new Client(1, clientData);
@@ -41,7 +48,7 @@ public class NativeSerializationDemo {
     }
 
     private Client deserialize(ByteBuffer clientBytes) {
-        clientBytes.flip(); // 1
+        //clientBytes ???? // 1
         var id = clientBytes.getLong();
         var longValue = clientBytes.getLong();
         var length = clientBytes.getInt();
@@ -57,12 +64,10 @@ public class NativeSerializationDemo {
     }
 
     private long setBit(long data, int bitIdx, boolean value) { // 2
-        long bitMask = 1L << bitIdx;
-        return value ? data | bitMask : data & ~bitMask;
+        return 0;
     }
 
     private boolean getBit(long data, int bitIdx) { // 3
-        long bitMask = 1L << bitIdx;
-        return (data & bitMask) > 0;
+        return true;
     }
 }
