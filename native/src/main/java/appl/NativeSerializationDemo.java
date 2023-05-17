@@ -28,19 +28,19 @@ public class NativeSerializationDemo {
     }
 
     private ByteBuffer serialize(Client client) {
-        var bytes = client.clientData().valueString().getBytes(StandardCharsets.UTF_8);
+        var bytes = client.getClientData().getValueString().getBytes(StandardCharsets.UTF_8);
         var buffer =
                 ByteBuffer.allocate(
                         Long.BYTES + Long.BYTES + Integer.BYTES + bytes.length + Long.BYTES);
 
-        buffer.putLong(client.id());
-        buffer.putLong(client.clientData().valueLong());
+        buffer.putLong(client.getId());
+        buffer.putLong(client.getClientData().getValueLong());
         buffer.putInt(bytes.length);
         buffer.put(bytes);
 
         var booleans = 0L;
-        booleans = setBit(booleans, 0, client.clientData().valueBool1());
-        booleans = setBit(booleans, 1, client.clientData().valueBool2());
+        booleans = setBit(booleans, 0, client.getClientData().isValueBool1());
+        booleans = setBit(booleans, 1, client.getClientData().isValueBool2());
 
         buffer.putLong(booleans);
 
